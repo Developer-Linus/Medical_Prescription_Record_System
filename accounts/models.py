@@ -17,6 +17,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('role', 'admin')
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True')
@@ -29,7 +30,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLES = [
         ('patient', 'Patient'),
         ('doctor', 'Doctor'),
-        ('pharmacist', 'Pharmacist')
+        ('pharmacist', 'Pharmacist'),
+        ('admin', 'Admin')
     ]
     username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(unique=True)
